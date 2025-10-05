@@ -5,19 +5,19 @@ export default function Appbar() {
   const mainItemNav = [
     {
       title: "About me",
-      href: "about",
+      href: "/about",
     },
     {
       title: "Skills",
-      href: "skill",
+      href: "/skill",
     },
     {
       title: "Portfolio",
-      href: "portfolio",
+      href: "/portfolio",
     },
     {
       title: "Contact Me",
-      href: "contact",
+      href: "/contact",
     },
   ];
 

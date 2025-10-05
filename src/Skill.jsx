@@ -1,7 +1,12 @@
-import React from 'react'
+import Appbar from "./components/Appbar";
+import Footer from "./components/Footer";
 
 export default function Skill() {
   return (
-    <div>Skill</div>
-  )
+    <div className="min-h-[100vh] flex flex-col ">
+      <Appbar />
+      Skill
+      <Footer />
+    </div>
+  );
 }
