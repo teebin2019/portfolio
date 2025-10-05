@@ -6,9 +6,11 @@ import About from "./About.jsx";
 import Skill from "./Skill.jsx";
 import Portfolio from "./Portfolio.jsx";
 import Contact from "./Contact.jsx";
+
+// Auth
+import AuthLayout from "./ui/layout/AuthLayout.jsx";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
-import AuthLayout from "./ui/layout/AuthLayout.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
