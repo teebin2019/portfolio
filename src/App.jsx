@@ -7,7 +7,7 @@ function App() {
     <div className="min-h-[100vh] flex flex-col ">
       <Appbar />
 
-      <div className="max-w-full mt-5 p-6  bg-white   ">
+      <div className="max-w-full mt-3 p-6  bg-white   ">
         <div className="flex flex-row p-10">
           <div className="basis-2/3  flex justify-center items-center">
             <div className="space-y-4">
