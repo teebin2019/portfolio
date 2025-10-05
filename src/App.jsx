@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <div className="min-h-[100vh] flex flex-col ">
       <Appbar />
       <div className="max-w-full mt-5 p-6  bg-white border border-gray-200 rounded-lg shadow-sm ">
         <h1 className="mb-4 text-3xl font-extrabold text-gray-900  md:text-5xl lg:text-6xl">
@@ -72,7 +72,7 @@ function App() {
         </button>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 
