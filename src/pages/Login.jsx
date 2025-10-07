@@ -31,12 +31,13 @@ export default function Login() {
       }
       setProcessing(false);
       setError("");
+      setEmail("");
+      setPassword("");
+      localStorage.setItem("token", result.token);
       navigate("/dashboard");
     } catch (error) {
       console.error(error);
     }
-    setEmail("");
-    setPassword("");
   };
 
   return (
