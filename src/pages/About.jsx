@@ -1,5 +1,5 @@
-import Appbar from "./components/Appbar";
-import Footer from "./components/Footer";
+import Appbar from "../components/Appbar";
+import Footer from "../components/Footer";
 
 export default function About() {
   return (
