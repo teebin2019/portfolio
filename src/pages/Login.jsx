@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [processing, setProcessing] = useState(false);
+
+  const navigate = useNavigate();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -22,11 +25,13 @@ export default function Login() {
       const result = await response.json();
       console.log(result);
       if (result.message === "Invalid credentials") {
-        setError(result.message);
+        setError("อีเมล หรือ รหัสผ่าน ไม่ถูกตัอง");
+        setProcessing(false);
         return;
       }
       setProcessing(false);
       setError("");
+      navigate("/dashboard");
     } catch (error) {
       console.error(error);
     }
