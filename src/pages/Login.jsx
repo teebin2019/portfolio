@@ -4,10 +4,32 @@ import { NavLink } from "react-router";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [processing, setProcessing] = useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    alert("Hello World");
+    try {
+      setProcessing(true);
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+      if (result.message === "Invalid credentials") {
+        setError(result.message);
+        return;
+      }
+      setProcessing(false);
+      setError("");
+    } catch (error) {
+      console.error(error);
+    }
     setEmail("");
     setPassword("");
   };
@@ -18,6 +40,16 @@ export default function Login() {
         <h5 className="text-xl font-medium text-gray-900 ">
           Sign in to our platform
         </h5>
+
+        {error && (
+          <div
+            className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 "
+            role="alert"
+          >
+            {error}
+          </div>
+        )}
+
         <div>
           <label
             htmlFor="email"
@@ -58,8 +90,9 @@ export default function Login() {
         <button
           type="submit"
           className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          disabled={processing}
         >
-          Login to your account
+          {processing ? "Loginning" : "Login to your account"}
         </button>
         <div className="text-sm font-medium text-gray-500 ">
           Not registered?{" "}
