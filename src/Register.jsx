@@ -6,21 +6,61 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPasswotd, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [processing, setProcessing] = useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    alert("Hello World");
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    setProcessing(true);
+
+    if (password != confirmPasswotd) {
+      setError("รหัสผ่านไม่ตรงกัน");
+      setProcessing(false);
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/logup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password,
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+      if (result.message === "อีเมลซ้ำ") {
+        setError("อีเมลซ้ำ");
+        setProcessing(false);
+        return;
+      }
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setProcessing(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="w-full max-w-xl p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 ">
       <form className="space-y-6" onSubmit={submit}>
         <h5 className="text-xl font-medium text-gray-900 ">Sign up</h5>
+        {error && (
+          <div
+            className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 "
+            role="alert"
+          >
+            {error}
+          </div>
+        )}
+
         <div>
           <label
             htmlFor="firstName"
@@ -140,8 +180,9 @@ export default function Register() {
         <button
           type="submit"
           className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+          disabled={processing}
         >
-          Submit
+          {processing ? "Submitting" : "Submit"}
         </button>
         <div className="text-sm font-medium text-gray-500 ">
           Not registered?{" "}
