@@ -17,7 +17,8 @@ import Register from "./pages/Register.jsx";
 // Dashboard
 import Dashboard from "./pages/Dashboard.jsx";
 import Home from "./pages/Home.jsx";
-import Users from "./pages/Users.jsx";
+import Users from "./pages/users/Users.jsx";
+import EditUser from "./pages/users/EditUser.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -36,6 +37,7 @@ createRoot(document.getElementById("root")).render(
       <Route path="dashboard" element={<Dashboard />}>
         <Route index element={<Home />} />
         <Route path="users" element={<Users />} />
+        <Route path="users/:id/edit" element={<EditUser />} />
       </Route>
     </Routes>
   </BrowserRouter>
