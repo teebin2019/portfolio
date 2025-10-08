@@ -19,6 +19,10 @@ export default function Appbar() {
       title: "Contact Me",
       href: "/contact",
     },
+    {
+      title: "Login",
+      href: "/login",
+    },
   ];
 
   return (
