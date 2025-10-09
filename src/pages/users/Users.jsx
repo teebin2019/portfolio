@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -51,18 +52,20 @@ export default function Users() {
                     </th>
                     <td className="px-6 py-4">{user.email}</td>
                     <td className="px-6 py-4 ">
-                      <a
-                        href="#"
+                      <NavLink
+                        to={`/dashboard/users/${user.id}/edit`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                       >
                         Edit
-                      </a>
+                      </NavLink>
                     </td>
                   </tr>
                 ))
               ) : (
-                <tr className="bg-white border-b   border-gray-200" >
-                  <td className="px-6 py-4 text-center " colspan="3">ไม่มีข้อมูล</td>
+                <tr className="bg-white border-b   border-gray-200">
+                  <td className="px-6 py-4 text-center " colspan="3">
+                    ไม่มีข้อมูล
+                  </td>
                 </tr>
               )}
             </tbody>
