@@ -4,12 +4,28 @@ import { NavLink } from "react-router";
 export default function Users() {
   const [users, setUsers] = useState([]);
 
+  const [success, setSuccess] = useState("");
+
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:8080/api/users");
       const result = await response.json();
       console.log(result);
       setUsers(result.users);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/users/" + id, {
+        method: "DELETE",
+      });
+      const result = await response.json();
+      console.log(result);
+      setSuccess(result.message);
+      fetchData();
     } catch (error) {
       console.error(error);
     }
@@ -22,6 +38,15 @@ export default function Users() {
   return (
     <div className="p-4 sm:ml-64">
       <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg ">
+        {success && (
+          <div
+            className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 0"
+            role="alert"
+          >
+            <span className="font-medium">{success}</span>
+          </div>
+        )}
+
         <div className="relative overflow-x-auto">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 ">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
@@ -54,16 +79,22 @@ export default function Users() {
                     <td className="px-6 py-4 ">
                       <NavLink
                         to={`/dashboard/users/${user.id}/edit`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                        className="font-medium text-blue-600  hover:underline me-3"
                       >
                         Edit
                       </NavLink>
+                      <button
+                        className="font-medium text-blue-600  hover:underline"
+                        onClick={() => handleDelete(user.id)}
+                      >
+                        Del
+                      </button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr className="bg-white border-b   border-gray-200">
-                  <td className="px-6 py-4 text-center " colspan="3">
+                  <td className="px-6 py-4 text-center " colSpan="3">
                     ไม่มีข้อมูล
                   </td>
                 </tr>
